@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <welcome-file-list>
+        <!--   最开始的欢迎页面     -->
+        <welcome-file>login.html</welcome-file>
+        <!--        含文件夹的欢迎页面路径-->
+<!--        <welcome-file>welcome/login/login.html</welcome-file>-->
+        <!--        sevlet做欢迎页面-->
+        <welcome-file>welcomeservlet</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>loginservlet</servlet-name>
+        <servlet-class>welcome.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginservlet</servlet-name>
+        <url-pattern>/welcomeservlet</url-pattern>
+    </servlet-mapping>
+</web-app>
