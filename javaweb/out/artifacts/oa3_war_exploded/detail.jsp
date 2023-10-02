@@ -1,0 +1,19 @@
+<%@page contentType="text/html;charset=UTF-8"%>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>详情页面</title>
+</head>
+
+<body>
+    <h1>部门详情</h1>
+    <hr> 部门编号:10 <br> 部门名称:研发部 <br> 部门位置:北京 <br>
+    <a  href="/oa/list.jsp">后退</a>
+
+</body>
+
+</html>

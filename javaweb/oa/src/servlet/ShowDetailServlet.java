@@ -29,7 +29,7 @@ public class ShowDetailServlet extends HttpServlet {
         ResultSet rs = null;
         //根据部门编号,去查找对应的部门
         try {
-            conn = JDBCUtils.getConnect();
+            conn = JDBCUtils.getConnection();
             String sql = "select * from dept where deptno = ?";
             pstat = conn.prepareStatement(sql);
             pstat.setInt(1, deptno);

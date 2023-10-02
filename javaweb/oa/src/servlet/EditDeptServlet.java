@@ -3,7 +3,7 @@ package servlet;
 import javax.servlet.http.*;
 import java.io.*;
 import java.sql.*;
-
+import javax.servlet.ServletException;
 import utils.JDBCUtils;
 
 public class EditDeptServlet extends HttpServlet {
@@ -22,7 +22,7 @@ public class EditDeptServlet extends HttpServlet {
         PreparedStatement pstat = null;
         ResultSet rs = null;
         try {
-            conn = JDBCUtils.getConnect();
+            conn = JDBCUtils.getConnection();
             String sql = "select * from dept where deptno = ?;";
             pstat = conn.prepareStatement(sql);
 
@@ -64,7 +64,7 @@ public class EditDeptServlet extends HttpServlet {
         }
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -78,7 +78,7 @@ public class EditDeptServlet extends HttpServlet {
         ResultSet rs = null;
         int affectRows;
         try {
-            conn = JDBCUtils.getConnect();
+            conn = JDBCUtils.getConnection();
             String sql = "update dept set deptno = ?, dname = ?, loc = ? where deptno = ?;";
             pstat = conn.prepareStatement(sql);
 
@@ -95,8 +95,13 @@ public class EditDeptServlet extends HttpServlet {
         }
 
         if (affectRows == 1) {
-            out.print("<h1>修改成功! 请自行后退刷新一下</h1>");
+//            request.getRequestDispatcher("/dept/list").forward(request,response);
+            response.sendRedirect(request.getContextPath()+"/dept/list");
+        }else{
+//            request.getRequestDispatcher("/error.html").forward(request,response);
+            response.sendRedirect(request.getContextPath()+"/error.html");
         }
+
         out.print("<a href=\"/oa/dept/list\">后退</a>");
     }
 
