@@ -1,5 +1,5 @@
 <%@page contentType="text/html;charset=UTF-8"%>
-
+<%@page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,12 +12,16 @@
 <body>
 <h1>修改部门</h1>
 <hr>
-<form method="post" action="">
-    部门编号<input type="text" name="deptno" value="10" readonly><br>
-    部门名称<input type="text" name="dname" value="研发部"><br>
-    部门位置<input type="text" name="location" value="北京"><br>
+<%
+    Object o = request.getAttribute("old-data");
+    ArrayList<?> list = (ArrayList<?>) o;
+%>
+<form method="post" action="<%=request.getContextPath()%>/dept/edit">
+    部门编号<input type="text" name="deptno" value="<%=list.get(0)%>" readonly><br>
+    部门名称<input type="text" name="dname" value="<%=list.get(1)%>"><br>
+    部门位置<input type="text" name="loc" value="<%=list.get(2)%>"><br>
     <input type="submit" value="修改">
-    <a  href="/oa/list.jsp">后退</a>
+    <a  href="<%=request.getContextPath()%>/dept/list">后退</a>
 </form>
 </body>
 

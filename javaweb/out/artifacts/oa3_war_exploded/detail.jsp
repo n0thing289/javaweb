@@ -1,5 +1,5 @@
-<%@page contentType="text/html;charset=UTF-8"%>
-
+<%@page contentType="text/html;charset=UTF-8" %>
+<%@page import="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,9 +10,16 @@
 </head>
 
 <body>
-    <h1>部门详情</h1>
-    <hr> 部门编号:10 <br> 部门名称:研发部 <br> 部门位置:北京 <br>
-    <a  href="/oa/list.jsp">后退</a>
+<h1>部门详情</h1>
+<%
+    Object o = request.getAttribute("detail-data");
+    ArrayList<?> list = (ArrayList<?>) o;
+%>
+<hr>
+部门编号:<%=list.get(0)%> <br>
+部门名称:<%=list.get(1)%> <br>
+部门位置:<%=list.get(2)%> <br>
+<a href="<%=request.getContextPath()%>/dept/list">后退</a>
 
 </body>
 

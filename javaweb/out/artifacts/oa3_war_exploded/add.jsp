@@ -12,9 +12,9 @@
         <h1>新增部门</h1>
         <hr>
         <form method="post" action="<%=request.getContextPath()%>/dept/add">
-            部门编号<input type="text" name="deptno"><br> 部门名称
-            <input type="text" name="dname"><br> 部门位置
-            <input type="text" name="loc"><br>
+            部门编号<input type="text" name="deptno"><br>
+            部门名称<input type="text" name="dname"><br>
+            部门位置<input type="text" name="loc"><br>
             <input type="submit" name="提交">
         </form>
         <br>
