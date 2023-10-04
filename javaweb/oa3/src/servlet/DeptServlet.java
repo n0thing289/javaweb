@@ -14,25 +14,34 @@ public class DeptServlet extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //获取路径, 再分别执行对应的功能
-        String path = request.getServletPath();
-        switch (path) {
-            case "/dept/list":
-                doList(request, response);
-                break;
-            case "/dept/add":
-                doAdd(request, response);
-                break;
-            case "/dept/delete":
-                doDelete(request, response);
-                break;
-            case "/dept/detail":
-                doDetail(request, response);
-                break;
-            case "/dept/edit":
-                doEdit(request, response);
-                break;
+        HttpSession session = request.getSession();
+        String o = (String) session.getAttribute("login");
+        if ("hsp".equals(o)) {
+            System.out.println("session验证成功");
+            //获取路径, 再分别执行对应的功能
+            String path = request.getServletPath();
+            switch (path) {
+                case "/dept/list":
+                    doList(request, response);
+                    break;
+                case "/dept/add":
+                    doAdd(request, response);
+                    break;
+                case "/dept/delete":
+                    doDelete(request, response);
+                    break;
+                case "/dept/detail":
+                    doDetail(request, response);
+                    break;
+                case "/dept/edit":
+                    doEdit(request, response);
+                    break;
+            }
+        } else {
+            System.out.println("session验证失败进入！");
+            response.sendRedirect(request.getContextPath() + "/error.html");
         }
+
     }
 
     public void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -255,4 +264,6 @@ public class DeptServlet extends HttpServlet {
 
 
     }
+
+
 }
