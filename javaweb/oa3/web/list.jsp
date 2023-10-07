@@ -20,6 +20,10 @@
 </head>
 
 <body>
+
+<h3>欢迎,[<%=session.getAttribute("uid")%>] 上次登录时间:<%=session.getLastAccessedTime()%></h3> <br>
+<h3><a href="<%=request.getContextPath()%>/user/quit">安全退出</a></h3>
+
 <h1 align="center">部门列表</h1>
 <hr>
 <table align="center" width="50%" border="1px">

@@ -21,10 +21,10 @@
             submit.addEventListener("click", function(){
                 console.log(uid.value)
                 console.log(pwd.value)
-                if(uid.value == null && pwd.value == null){
+                if(uid.value === "" || pwd.value === ""){
                     alert("no null")
                 }else{
-                    form.setAttribute("action", "<%=request.getContextPath()%>/dept/login")
+                    form.setAttribute("action", "<%=request.getContextPath()%>/user/login")
                 }
             })
         }

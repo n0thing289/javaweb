@@ -14,9 +14,8 @@ public class DeptServlet extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        String o = (String) session.getAttribute("login");
-        if ("hsp".equals(o)) {
+        HttpSession session = request.getSession(false);//如果没有现有的session,说明是第一次访问服务器
+        if (session != null && session.getAttribute("uid") != null) {
             System.out.println("session验证成功");
             //获取路径, 再分别执行对应的功能
             String path = request.getServletPath();
@@ -38,8 +37,7 @@ public class DeptServlet extends HttpServlet {
                     break;
             }
         } else {
-            System.out.println("session验证失败进入！");
-            response.sendRedirect(request.getContextPath() + "/error.html");
+            response.sendRedirect(request.getContextPath() + "/welcome.jsp");
         }
 
     }
