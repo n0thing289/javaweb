@@ -61,7 +61,7 @@
 </table>
 
 <hr>
-<a href="http://localhost:8080<%=request.getContextPath()%>/add.jsp">新增部门</a>
+<a href="<%=request.getContextPath()%>/add.jsp">新增部门</a>
 </body>
 
 </html>

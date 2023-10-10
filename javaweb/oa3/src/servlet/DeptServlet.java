@@ -13,7 +13,7 @@ import utils.*;
 public class DeptServlet extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession(false);//如果没有现有的session,说明是第一次访问服务器
         if (session != null && session.getAttribute("uid") != null) {
             System.out.println("session验证成功");
@@ -36,6 +36,8 @@ public class DeptServlet extends HttpServlet {
                     doEdit(request, response);
                     break;
             }
+        } else if (cookies != null) {// 没有cookie, 创建都不创建
+            doCookieVerify(request, response, cookies);
         } else {
             response.sendRedirect(request.getContextPath() + "/welcome.jsp");
         }
@@ -261,6 +263,55 @@ public class DeptServlet extends HttpServlet {
         }
 
 
+    }
+
+    public void doCookieVerify(HttpServletRequest request, HttpServletResponse response, Cookie[] cookies) throws ServletException, IOException {
+        //拿出一个账户cookie,
+        String client = null;
+        String str = null;
+        String uid = null;
+        String pwd = null;
+        for (Cookie cookie : cookies) {
+            if ("client".equals(cookie.getName())) {
+                str = cookie.getValue();
+            }
+        }
+        if (str == null) {
+            response.sendRedirect(request.getContextPath() + "/welcome.jsp");
+            return;
+        } else {
+            String[] split = str.split("-");
+            uid = split[0];
+            pwd = split[1];
+        }
+        //与数据库进行比对
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String password = null;
+        try {
+            conn = JDBCUtil.getConnection();
+            String sql = "select pwd from user where uid = ?;";
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, uid);
+
+            rs = ps.executeQuery();
+            rs.next();
+            password = rs.getString("pwd");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(rs, ps, conn);
+        }
+        //判断通过则给一个session,重定向到用户一开始想打开的页面
+        if (pwd != null && pwd.equals(password)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("uid", uid);
+            response.sendRedirect(request.getRequestURL().toString());
+        }else{
+            response.sendRedirect(request.getContextPath() + "/welcome.jsp");
+        }
     }
 
 

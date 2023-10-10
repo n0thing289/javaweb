@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: 28927
+  bean.User: 28927
   Date: 2023/10/4
   Time: 15:01
   To change this template use File | Settings | File Templates.
@@ -39,6 +39,7 @@
 <form method="post" action="javascript:void(0);" class="form">
     用户名<input type="text" name="uid" value="" class="uid"> <br>
     密码  <input type="password" name="pwd" value="" class="pwd"> <br>
+    十天免登录 <input type="checkbox" name="auto-login-10"> <br>
     <input type="submit" value="登录" class="sb">
 </form>
 </body>
