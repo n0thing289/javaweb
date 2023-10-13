@@ -12,12 +12,14 @@
     request.setAttribute("userObj",user);
 %>
 <%--取对象数据--%>
-${userObj}
-<br>
+EL：${userObj} 传统方式：<%=request.getAttribute("userObj")%>
+<hr>
 <%--取对象属性--%>
-${userObj.name}
-<br>
+EL: ${userObj.name} 传统方式: <%=((User)request.getAttribute("userObj")).getName()%>
+<hr>
 <%--取引用对象属性--%>
-${userObj.addr.city}
-${userObj.addr.street}
-${userObj.addr.email}
+EL: ${userObj.addr.city} 传统方式: <%=((User)request.getAttribute("userObj")).getAddr().getCity()%>
+<hr>
+EL:${userObj.addr.street} 传统方式: <%=((User)request.getAttribute("userObj")).getAddr().getStreet()%>
+<hr>
+EL:${userObj.addr.email} 传统方式: <%=((User)request.getAttribute("userObj")).getAddr().getEmail()%>

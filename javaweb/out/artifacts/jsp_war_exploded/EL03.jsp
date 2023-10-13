@@ -6,4 +6,12 @@
     session.setAttribute("data","session");
     application.setAttribute("data", "application");
 %>
+<%--pageContext < request < session < application--%>
 ${data}
+
+<hr>
+<%--pageScope requestScope sessionScope applicationScope--%>
+${pageScope.data}<br>
+${requestScope.data}<br>
+${sessionScope.data}<br>
+${applicationScope.data}<br>
