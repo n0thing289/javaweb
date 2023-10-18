@@ -1,5 +1,6 @@
 <%@page contentType="text/html;charset=UTF-8" %>
 <%@page import="java.util.*" %>
+<%@ page import="bean.Dept" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,12 +14,13 @@
 <h1>部门详情</h1>
 <%
     Object o = request.getAttribute("detail-data");
-    ArrayList<?> list = (ArrayList<?>) o;
+//    ArrayList<?> list = (ArrayList<?>) o;
+    Dept dept = (Dept)o;
 %>
 <hr>
-部门编号:<%=list.get(0)%> <br>
-部门名称:<%=list.get(1)%> <br>
-部门位置:<%=list.get(2)%> <br>
+部门编号:<%=dept.getDeptno()%> <br>
+部门名称:<%=dept.getDname()%> <br>
+部门位置:<%=dept.getLoc()%> <br>
 <a href="<%=request.getContextPath()%>/dept/list">后退</a>
 
 </body>

@@ -11,14 +11,14 @@
     <body>
         <h1>新增部门</h1>
         <hr>
-        <form method="post" action="<%=request.getContextPath()%>/dept/add">
+        <form method="post" action="${pageContext.request.contextPath}/dept/add"> <%--<%=request.getContextPath()%>--%>
             部门编号<input type="text" name="deptno"><br>
             部门名称<input type="text" name="dname"><br>
             部门位置<input type="text" name="loc"><br>
             <input type="submit" name="提交">
         </form>
         <br>
-        <a  href="<%=request.getContextPath()%>/dept/list">后退</a> ${pageContext.request.contextPath}
+        <a  href=" ${pageContext.request.contextPath}/dept/list">后退</a> <%--<%=request.getContextPath()%>--%>
 
     </body>
 

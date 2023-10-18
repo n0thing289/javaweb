@@ -7,39 +7,59 @@ import javax.servlet.annotation.*;
 import java.sql.*;
 import java.util.*;
 
+import bean.Dept;
 import utils.*;
 
 @WebServlet({"/dept/list", "/dept/add", "/dept/delete", "/dept/detail", "/dept/edit"})
 public class DeptServlet extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        HttpSession session = request.getSession(false);//如果没有现有的session,说明是第一次访问服务器
-        if (session != null && session.getAttribute("uid") != null) {
-            System.out.println("session验证成功");
-            //获取路径, 再分别执行对应的功能
-            String path = request.getServletPath();
-            switch (path) {
-                case "/dept/list":
-                    doList(request, response);
-                    break;
-                case "/dept/add":
-                    doAdd(request, response);
-                    break;
-                case "/dept/delete":
-                    doDelete(request, response);
-                    break;
-                case "/dept/detail":
-                    doDetail(request, response);
-                    break;
-                case "/dept/edit":
-                    doEdit(request, response);
-                    break;
-            }
-        } else if (cookies != null) {// 没有cookie, 创建都不创建
-            doCookieVerify(request, response, cookies);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/welcome.jsp");
+//        Cookie[] cookies = request.getCookies();
+//        HttpSession session = request.getSession(false);//如果没有现有的session,说明是第一次访问服务器
+//        if (session != null && session.getAttribute("uid") != null) {
+//            //获取路径, 再分别执行对应的功能
+//            String path = request.getServletPath();
+//            switch (path) {
+//                case "/dept/list":
+//                    doList(request, response);
+//                    break;
+//                case "/dept/add":
+//                    doAdd(request, response);
+//                    break;
+//                case "/dept/delete":
+//                    doDelete(request, response);
+//                    break;
+//                case "/dept/detail":
+//                    doDetail(request, response);
+//                    break;
+//                case "/dept/edit":
+//                    doEdit(request, response);
+//                    break;
+//            }
+//        } else if (cookies != null) {// 没有cookie, 创建都不创建
+//            doCookieVerify(request, response, cookies);
+//        } else {
+//            response.sendRedirect(request.getContextPath() + "/welcome.jsp");
+//        }
+
+        //获取路径, 再分别执行对应的功能
+        String path = request.getServletPath();
+        switch (path) {
+            case "/dept/list":
+                doList(request, response);
+                break;
+            case "/dept/add":
+                doAdd(request, response);
+                break;
+            case "/dept/delete":
+                doDelete(request, response);
+                break;
+            case "/dept/detail":
+                doDetail(request, response);
+                break;
+            case "/dept/edit":
+                doEdit(request, response);
+                break;
         }
 
     }
@@ -52,17 +72,19 @@ public class DeptServlet extends HttpServlet {
         PreparedStatement ps = null;
         ResultSet rs = null;
         HashMap<Integer, String> data = new HashMap<>();
+        List<Dept> deptList = new ArrayList<>();
         try {
             conn = JDBCUtil.getConnection();
-            String sql = "select deptno, dname from dept;";
+            String sql = "select deptno, dname,loc from dept;";
             ps = conn.prepareStatement(sql);
 
             rs = ps.executeQuery();
             while (rs.next()) {
                 int deptno = rs.getInt("deptno");
                 String dname = rs.getString("dname");
+                String loc = rs.getString("loc");
                 //向map中绑定数据
-                data.put(deptno, dname);
+                deptList.add(new Dept(deptno, dname, loc));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -70,7 +92,7 @@ public class DeptServlet extends HttpServlet {
             JDBCUtil.close(rs, ps, conn);
         }
         //向request域中绑定数据
-        request.setAttribute("list-data", data);
+        request.setAttribute("list-data", deptList);
         //转发给list.jsp
         request.getRequestDispatcher("/list.jsp").forward(request, response);
     }
@@ -152,7 +174,7 @@ public class DeptServlet extends HttpServlet {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        ArrayList<String> list = new ArrayList<>();
+        Dept dept = null;
         try {
             conn = JDBCUtil.getConnection();
             String sql = "select deptno, dname, loc from dept where deptno = ?";
@@ -167,18 +189,21 @@ public class DeptServlet extends HttpServlet {
             String loc = rs.getString("loc");
 
             //封装数据
-            list.add(deptno + "");
-            list.add(dname);
-            list.add(loc);
+            if(deptno != 0){
+                dept = new Dept();
+                dept.setDeptno(deptno);
+                dept.setDname(dname);
+                dept.setLoc(loc);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
             JDBCUtil.close(rs, ps, conn);
         }
         //向request域中绑定数据
-        request.setAttribute("detail-data", list);
+        request.setAttribute("detail-data", dept);
         //查询成功则转发给detail.jsp，否则重定向error页面
-        if (list.size() != 0) {
+        if (dept != null) {
             request.getRequestDispatcher("/detail.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/error.html");
@@ -197,7 +222,7 @@ public class DeptServlet extends HttpServlet {
             Connection conn = null;
             PreparedStatement ps = null;
             ResultSet rs = null;
-            ArrayList<String> list = new ArrayList<>(3);
+            Dept dept = null;
             try {
                 conn = JDBCUtil.getConnection();
                 String sql = "select deptno, dname, loc from dept where deptno = ?;";
@@ -212,18 +237,21 @@ public class DeptServlet extends HttpServlet {
                 String loc = rs.getString("loc");
 
                 //封装数据
-                list.add(deptno + "");
-                list.add(dname);
-                list.add(loc);
+                if(deptno != 0){
+                    dept = new Dept();
+                    dept.setDeptno(deptno);
+                    dept.setDname(dname);
+                    dept.setLoc(loc);
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             } finally {
                 JDBCUtil.close(rs, ps, conn);
             }
             //在request域中绑定数据
-            request.setAttribute("old-data", list);
+            request.setAttribute("old-data", dept);
             //转发给edit.jsp
-            if (list.size() != 0) {
+            if (dept != null) {
                 request.getRequestDispatcher("/edit.jsp").forward(request, response);
             } else {
                 response.sendRedirect(request.getContextPath() + "/error.html");
@@ -309,7 +337,7 @@ public class DeptServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("uid", uid);
             response.sendRedirect(request.getRequestURL().toString());
-        }else{
+        } else {
             response.sendRedirect(request.getContextPath() + "/welcome.jsp");
         }
     }

@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/oa/oa.iml" filepath="$PROJECT_DIR$/oa/oa.iml" />
       <module fileurl="file://$PROJECT_DIR$/oa2/oa2.iml" filepath="$PROJECT_DIR$/oa2/oa2.iml" />
       <module fileurl="file://$PROJECT_DIR$/oa3/oa3.iml" filepath="$PROJECT_DIR$/oa3/oa3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/oa4/oa4.iml" filepath="$PROJECT_DIR$/oa4/oa4.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet01/servlet01.iml" filepath="$PROJECT_DIR$/servlet01/servlet01.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet02/servlet02.iml" filepath="$PROJECT_DIR$/servlet02/servlet02.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet03/servlet03.iml" filepath="$PROJECT_DIR$/servlet03/servlet03.iml" />
@@ -19,6 +18,8 @@
       <module fileurl="file://$PROJECT_DIR$/servlet11/servlet11.iml" filepath="$PROJECT_DIR$/servlet11/servlet11.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet12/servlet12.iml" filepath="$PROJECT_DIR$/servlet12/servlet12.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet13/servlet13.iml" filepath="$PROJECT_DIR$/servlet13/servlet13.iml" />
+      <module fileurl="file://$PROJECT_DIR$/servlet14/servlet14.iml" filepath="$PROJECT_DIR$/servlet14/servlet14.iml" />
+      <module fileurl="file://$PROJECT_DIR$/servlet15/servlet15.iml" filepath="$PROJECT_DIR$/servlet15/servlet15.iml" />
       <module fileurl="file://$PROJECT_DIR$/template/template.iml" filepath="$PROJECT_DIR$/template/template.iml" />
     </modules>
   </component>

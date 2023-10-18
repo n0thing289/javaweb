@@ -1,5 +1,7 @@
 <%@page contentType="text/html;charset=UTF-8" %>
 <%@page import="java.util.*" %>
+<%@ page import="bean.Dept" %>
+<%@ page import="bean.User" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +23,7 @@
 
 <body>
 
-<h3>欢迎,[<%=session.getAttribute("uid")%>] 上次登录时间:<%=session.getLastAccessedTime()%></h3> <br>
+<h3>欢迎,[<%=((User)session.getAttribute("user")).getUid()%>] 上次登录时间:<%=session.getLastAccessedTime()%> 当前在线人数:[${applicationScope.onlineUsers}]</h3> <br>
 <h3><a href="<%=request.getContextPath()%>/user/quit">安全退出</a></h3>
 
 <h1 align="center">部门列表</h1>
@@ -35,26 +37,34 @@
     </tr>
     <%
         Object o = request.getAttribute("list-data");
-        Map<?, ?> map = (HashMap<?, ?>) o;
+//        Map<?, ?> map = (HashMap<?, ?>) o;
+        List<Dept> deptList = (List) o;
         int num = 0;
 
-        Set<?> set = map.keySet();
-        Object[] arr = set.toArray();
-        Arrays.sort(arr);
-        for (Object key : arr) {
-            int deptno = (int) key;
-            String dname = (String) map.get(deptno);
+//        Set<?> set = map.keySet();
+//        Object[] arr = set.toArray();
+//        Arrays.sort(arr);
+//        for (Object key : arr) {
+//            int deptno = (int) key;
+//            String dname = (String) map.get(deptno);
+        for (Dept dept : deptList) {
+            int deptno = dept.getDeptno();
+            String dname = dept.getDname();
+            String loc = dept.getLoc();
     %>
-        <tr>
-            <td><%=(++num)%></td>
-            <td><%=deptno%></td>
-            <td><%=dname%></td>
-            <td>
-                <a href="javascript:void(0);" onclick='del(<%=deptno%>)'>删除</a>
-                <a href="<%=request.getContextPath()%>/dept/edit?deptno=<%=deptno%>">修改</a>
-                <a href="<%=request.getContextPath()%>/dept/detail?deptno=<%=deptno%>">详情</a>
-            </td>
-        </tr>
+    <tr>
+        <td><%=(++num)%>
+        </td>
+        <td><%=deptno%>
+        </td>
+        <td><%=dname%>
+        </td>
+        <td>
+            <a href="javascript:void(0);" onclick='del(<%=deptno%>)'>删除</a>
+            <a href="<%=request.getContextPath()%>/dept/edit?deptno=<%=deptno%>">修改</a>
+            <a href="<%=request.getContextPath()%>/dept/detail?deptno=<%=deptno%>">详情</a>
+        </td>
+    </tr>
     <%
         }
     %>
