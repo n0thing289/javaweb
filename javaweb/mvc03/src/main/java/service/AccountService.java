@@ -33,7 +33,7 @@ public class AccountService {
 
             //1. 检查余额是否充足
             //调用AccountDAO查询转出账户的余额
-            Account fromAct = accountDAO.selectByActNo(fromActNo);
+            Account fromAct = accountDAO.selectByActNo(fromActNo, conn);
             Double balance = fromAct.getBalance();
             if (money > balance) {
                 //转出金额大于余额,不能转出
@@ -41,13 +41,15 @@ public class AccountService {
             }
             //走到这里说明可以转账
             //拿到对方账户对象
-            Account toAct = accountDAO.selectByActNo(toActNo);
+            Account toAct = accountDAO.selectByActNo(toActNo, conn);
             //转出账户的余额减少, 转入账户的余额增加
             fromAct.setBalance(balance - money);
             toAct.setBalance(toAct.getBalance() + money);
             //修改数据库中数据
-            int count = accountDAO.update(fromAct);
-            count += accountDAO.update(toAct);
+            int count = accountDAO.update(fromAct, conn);
+            //模拟异常
+            int i = 1 / 0;
+            count += accountDAO.update(toAct, conn);
             //
             if (count != 2) {
                 throw new AppException("账户转账异常");
@@ -67,6 +69,5 @@ public class AccountService {
         } finally {
             JDBCUtil.close(null, null, conn);
         }
-
     }
 }

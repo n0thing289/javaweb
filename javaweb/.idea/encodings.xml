@@ -5,8 +5,14 @@
     <file url="file://$PROJECT_DIR$/mvc01/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mvc02/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mvc02/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mvc03-threadlocal/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mvc03-threadlocal/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mvc03/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mvc03/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mvc04/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mvc04/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mvc05-last/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mvc05-last/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/oa/src/servlet/ListDeptServlet.java" charset="UTF-8" />
   </component>
 </project>

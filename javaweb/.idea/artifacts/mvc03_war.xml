@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="mvc02.war">
+    <root id="archive" name="mvc03.war">
       <element id="artifact" artifact-name="mvc03:war exploded" />
     </root>
   </artifact>
