@@ -1,7 +1,7 @@
 <%@page contentType="text/html;charset=UTF-8"%>
 <%@page isELIgnored="false"%>
 <html>
-    <title>mvc05-last模拟银行转账不使用mvc</title>
+    <title>mvc04模拟银行转账不使用mvc</title>
 <body>
 <h2>Hello World!</h2>
 
